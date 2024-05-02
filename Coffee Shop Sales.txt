@@ -1,0 +1,31 @@
+Here we are to create a coffee shop sales dashboard and answer questions like:
+1. How have Maven Roasters sales trended over time?
+2. Which days of the week tend to be busiest, and why do you think that's the case?
+3. Which products are sold most and least often? Which drive the most revenue for the business?
+
+Source:
+https://mavenanalytics.io/data-playground?page=4&pageSize=5
+
+Once the data is downloaded, we load the data into a new Excel file and then we need to transform the data
+
+Data cleaning:
+Upon checking the data, we see that the Product details has values which end with Lg, Rg, Sm and some do not have values. On investigating, we find that Lg stands for Large, Rg stands for Regular and Sm stands for Small and some fields do not have it mentioned. We create a new conditional column and put the sze there. Once done, we remove the suffix from the actual column and trim the column. Next we see, that transaction_time field shows both the time and date and also transaction_date shows the same date, so we remove the date from the transaction_time column using the delimiter option where delimiter here is " ". Next we bring in the Name of the month, Name of the day, hour of the order from the transaction_date and transaction_time fields respectively as those are required in answering the questions asked. Also we have the unit_price and transaction_qty, so we multiple both and bring in a new column as Total Bill. This should be good for now, so we go ahead and load the data 
+
+We use the option, Close and load to - use the existing worksheet and select the option Add this data to Data model
+
+Data modeling:
+As we have one table only, there is not much data modeling that is required here. We go on to File>>Options>>Customize Ribbon and turn on the Developer and then inside the Developer>>Comm Add-ins, add the Power Pivot
+
+
+Dashboard creation:
+Once everything is ready, we start creating Pivot tables and corresponding Charts which will help us visualize and answer the questions that we have in hand. We create two tabs, "Pivot" for creating the Pivot tables and "Dashboard" for creating the Dashboard. Pivot tables are created on the Pivot tab, then the charts are inserted and later moved to the Dashboard tab
+
+Measures created:
+1. Sales = [Sum of Total Bill]
+2. Total orders =DISTINCTCOUNT([transaction_id])
+3. Avg. order value =DIVIDE([Sum of Total Bill],COUNT([transaction_id]),0)
+4. Avg. order per person =DIVIDE([Sum of transaction_qty], DISTINCTCOUNT([transaction_id]),0) 
+
+All the necessary charts are created, aligned and formated to create a nice looking dashboard. We are using different shades of brown color here as the Dashboard is related to a coffee shop. We introduce two slicers based on Month and Day to filter down the Dashboard according to that. Finally the Dashboard is ready for us to answer the questions asked 
+
+Protect worksheet password: 12345
